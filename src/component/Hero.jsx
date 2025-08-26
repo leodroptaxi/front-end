@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Form from "./Form";
 
-import img1 from "../assets/img1.png";
-import img2 from "../assets/img2.png";
-import img3 from "../assets/img3.png";
-import img4 from "../assets/img4.png";
-import img5 from "../assets/img5.png";
 
 // Use your imported images
-const images = [img1, img2, img3, img4, img5];
+const images = ["https://ik.imagekit.io/yeoyn0r1ah/Property%201=Variant5%20(1).png?updatedAt=1756224421134", 
+  "https://ik.imagekit.io/yeoyn0r1ah/Property%201=Variant4.png?updatedAt=1756224416095", 
+  "https://ik.imagekit.io/yeoyn0r1ah/Property%201=Default%20(2).png?updatedAt=1756224420725",
+   "https://ik.imagekit.io/yeoyn0r1ah/WhatsApp%20Image%202025-08-24%20at%2021.58.21_94b775ab.jpg?updatedAt=1756224411420", 
+  "https://ik.imagekit.io/yeoyn0r1ah/WhatsApp%20Image%202025-08-25%20at%2006.59.59_e5c4a4de.jpg?updatedAt=1756224411120"
+];
 
 export default function Hero() {
   const [currentImage, setCurrentImage] = useState(0);
