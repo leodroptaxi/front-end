@@ -192,7 +192,7 @@ function TariffCard({ category, includedFeatures }) {
                 transition={{ duration: 0.6 }}
                 className="text-xl font-bold text-white text-center uppercase"
               >
-                {currentCar.model || category.type}
+                {currentCar.model}
               </motion.h2>
             </AnimatePresence>
           </div>
@@ -209,7 +209,9 @@ function TariffCard({ category, includedFeatures }) {
               ONE WAY
             </div>
             <div className="flex items-baseline text-[#025771]">
-              <span className="text-5xl font-bold">₹{currentCar.oneWay}</span>
+              <span className="text-4xl md:text-5xl font-bold">
+                ₹{currentCar.oneWay}
+              </span>
               <span className="text-xl ml-1">/KM</span>
             </div>
             <div className="text-sm font-medium">
@@ -223,7 +225,7 @@ function TariffCard({ category, includedFeatures }) {
               ROUND TRIP
             </div>
             <div className="flex text-[#025771] items-baseline">
-              <span className="text-5xl font-bold">
+              <span className="text-4xl md:text-5xl font-bold">
                 ₹{currentCar.roundTrip}
               </span>
               <span className="text-xl ml-1">/KM</span>
@@ -234,16 +236,15 @@ function TariffCard({ category, includedFeatures }) {
           </div>
         </div>
 
-        {/* Right Includes */}
-        <div className="pl-10">
-          <div className="text-green-800 text-lg font-bold mb-3 uppercase">
+        <div className="pl-5 md:pl-10">
+          <div className="text-green-800 text-sm md:text-lg font-bold mb-3 uppercase">
             INCLUDE WITH
           </div>
-          <ul className="text-base text-gray-800 space-y-3">
+          <ul className="md:text-base text-gray-800 text-sm space-y-2 md:space-y-3">
             {includedFeatures.map((feature, idx) => (
-              <li key={idx} className="flex items-start">
-                <span className="w-1.5 h-1.5 bg-gray-700 rounded-full mt-2 mr-2"></span>
-                {feature}
+              <li key={idx} className="flex items-center">
+                <span className="flex-shrink-0 w-2 h-2 bg-gray-700 rounded-full mr-2"></span>
+                <span className="leading-snug">{feature}</span>
               </li>
             ))}
           </ul>
