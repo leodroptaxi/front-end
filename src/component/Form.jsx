@@ -139,7 +139,7 @@ const Form = () => {
       newErrors.car_type = 'Please select a car type';
     }
     if (formData.mobile && !/^[0-9]{10}$/.test(formData.mobile)) {
-      newErrors.mobile = 'Please enter a valid 10-digit mobile number';
+      newErrors.mobile = 'Enter a valid number';
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
