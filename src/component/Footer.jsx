@@ -147,16 +147,29 @@ export default function Footer() {
             </p>
           </div>
 
-          <div className="flex justify-between mt-5 text-white font-semibold space-y-4">
-            <div className="space-y-2">
-              <h1>MOBILE NUMBER</h1>
-              <h1 className="text-[#FFC300]">9150245494</h1>
-            </div>
-            <div className="space-y-2">
-              <h1>WHATSAPP NUMBER</h1>
-              <h1 className="text-[#FFC300]">9150245494</h1>
-            </div>
-          </div>
+          <div className="flex justify-between mt-5 text-white font-semibold flex-col md:flex-row gap-6">
+  {/* Mobile Number */}
+  <div className="space-y-2">
+    <h1>MOBILE NUMBER</h1>
+    <a href="tel:+917200343435" className="text-[#FFC300] hover:underline">
+      +91 7200343435
+    </a>
+  </div>
+
+  {/* WhatsApp Number */}
+  <div className="space-y-2">
+    <h1>WHATSAPP NUMBER</h1>
+    <a
+      href="https://wa.me/917200343435"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-[#FFC300] hover:underline"
+    >
+      +91 7200343435
+    </a>
+  </div>
+</div>
+
 
           {/* Mobile Menu Links */}
           <div className="mt-6 space-y-2">

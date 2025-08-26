@@ -73,9 +73,9 @@ export default function Navbar() {
             })}
 
             {/* Call Us Button */}
-            <button className="bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-2 rounded-full font-bold text-sm transition-colors duration-300">
+            <a  href="https://wa.me/917200343435" className="bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-2 rounded-full font-bold text-sm transition-colors duration-300">
               CALL US
-            </button>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
