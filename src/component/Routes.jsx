@@ -1,19 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { TbCaretRight } from "react-icons/tb";
-import route1 from '../assets/routes1.png'
-import route2 from '../assets/routes2.png'
-import route3 from '../assets/routes3.png'
-import route4 from '../assets/routes4.png'
+import route1 from "../assets/routes1.png";
+import route2 from "../assets/routes2.png";
+import route3 from "../assets/routes3.png";
+import route4 from "../assets/routes4.png";
+
+import card1 from "../assets/card1.png";
+import card2 from "../assets/card2.png";
+import card3 from "../assets/card3.png";
+import card4 from "../assets/card4.png";
 
 export default function Routes() {
   const [visibleCards, setVisibleCards] = useState([]);
+
+  const cards=[
+    card1,card2,card3,card4
+  ]
 
   const routes = [
     {
       id: 1,
       title: "CHENNAI TO KODAIKANAL",
-      image:
-        route1,
+      image: route1,
       vehicles: [
         { type: "SEDAN", oneWay: "Rs.14 / km", roundTrip: "Rs.13 / km" },
         { type: "ETIOS", oneWay: "Rs.15 / km", roundTrip: "Rs.14 / km" },
@@ -30,8 +38,7 @@ export default function Routes() {
     {
       id: 2,
       title: "CHENNAI TO COURTALLAM",
-      image:
-        route2,
+      image: route2,
       vehicles: [
         { type: "SEDAN", oneWay: "Rs.17 / km", roundTrip: "Rs.15 / km" },
         { type: "ETIOS", oneWay: "Rs.17 / km", roundTrip: "Rs.15 / km" },
@@ -48,8 +55,7 @@ export default function Routes() {
     {
       id: 3,
       title: "CHENNAI TO KANNIYAKUMARI",
-      image:
-       route3,
+      image: route3,
       vehicles: [
         { type: "SEDAN", oneWay: "Rs.17 / km", roundTrip: "Rs.15 / km" },
         { type: "ETIOS", oneWay: "Rs.17 / km", roundTrip: "Rs.15 / km" },
@@ -66,8 +72,7 @@ export default function Routes() {
     {
       id: 4,
       title: "RAMESHWARAM TO ISHA YOGA",
-      image:
-       route4,
+      image: route4,
       vehicles: [
         { type: "SEDAN", oneWay: "Rs.17 / km", roundTrip: "Rs.15 / km" },
         { type: "ETIOS", oneWay: "Rs.17 / km", roundTrip: "Rs.15 / km" },
@@ -93,7 +98,7 @@ export default function Routes() {
 
   return (
     <div className="relative overflow-hidden " id="popular-routes">
-      <div className="relative z-10 p-8 max-w-6xl mx-auto">
+      <div className="relative z-10 px-8 md:px-0 py-8 max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-12 ">
           <div className="relative">
@@ -105,7 +110,7 @@ export default function Routes() {
         </div>
 
         {/* Grid Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {routes.map((route, index) =>
             visibleCards.includes(index) ? (
               <div
@@ -113,10 +118,9 @@ export default function Routes() {
                 className="relative lg:w-[450px] w-[300px] mx-auto"
               >
                 <div className="absolute -top-3 -left-14 flex flex-col items-center">
+                  <TbCaretRight className="text-6xl text-[#FBFF00]" />
 
-                  <TbCaretRight className="text-6xl text-[#FBFF00]"/>
-
-<div className="bg-gray-200 h-[33rem] md:h-[35rem] w-1"></div>
+                  <div className="bg-gray-200 h-[33rem] md:h-[35rem] w-1"></div>
                 </div>
                 <div>
                   <img
@@ -134,7 +138,7 @@ export default function Routes() {
                   <div className="pb-4 overflow-hidden rounded-bl-full bg-[linear-gradient(to_right,#7fdfd0_50%,#029EA1_50%)] mt-2">
                     <div className="flex flex-col items-end justify-end bg-opacity-60">
                       <div className="lg:w-[90%] w-[85%] h-full flex flex-col items-end justify-end text-[9px]">
-                        {/* Pricing rows */}
+                     
                         <div className="space-y-0 p-2 bg-[#029EA1] w-full">
                           <div className="grid grid-cols-3 gap-2 text-center mb-2">
                             <div className="p-2 border-b-2 border-dashed border-gray-400 bg-white text-gray-800">
@@ -158,7 +162,9 @@ export default function Routes() {
                               }`}
                             >
                               <div className="p-2 text-gray-800">{v.type}</div>
-                              <div className="p-2 text-teal-700">{v.oneWay}</div>
+                              <div className="p-2 text-teal-700">
+                                {v.oneWay}
+                              </div>
                               <div className="p-2 text-teal-700">
                                 {v.roundTrip}
                               </div>
@@ -167,7 +173,7 @@ export default function Routes() {
                         </div>
                       </div>
 
-                      {/* Includes */}
+                 
                       <div className="bg-[#029EA1] p-4 lg:text-xs text-[8px] lg:space-y-2">
                         <ul className="text-yellow font-semibold">
                           INCLUDED WITH
@@ -184,7 +190,28 @@ export default function Routes() {
               </div>
             ) : null
           )}
-        </div>
+        </div> */}
+        
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+  {cards.map((card, idx) => (
+    <div key={idx} className="relative">
+      {/* Vertical line spanning full image height */}
+      <div className="absolute top-12 left-2 h-[85%] w-1 bg-gray-200"></div>
+
+      {/* Image */}
+      <img
+        src={card}
+        className="rounded-tr-3xl w-full object-cover"
+        alt={`card-${idx}`}
+      />
+    </div>
+  ))}
+</div>
+
+
+
+        
       </div>
     </div>
   );

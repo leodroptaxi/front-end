@@ -340,7 +340,7 @@ https://www.leodroptaxi.com`;
   };
 
   return (
-    <div className="py-8 px-4">
+    <div className="py-4 md:py-8 px-4 poppins-font">
       <div className="max-w-md mx-auto">
         {/* Main Booking Form */}
         {currentStep === "form" && (
@@ -383,7 +383,7 @@ https://www.leodroptaxi.com`;
                     </div>
                   </div>
                   <span
-                    className={`ml-3  text-md font-medium  ${
+                    className={`ml-3  text-md font-bold  ${
                       formData.trip_type === "one_way"
                         ? "text-yellow-500 "
                         : "text-white"
@@ -425,7 +425,7 @@ https://www.leodroptaxi.com`;
                     </div>
                   </div>
                   <span
-                    className={`ml-3  text-md font-medium  ${
+                    className={`ml-3  text-md font-bold  ${
                       formData.trip_type === "round_trip"
                         ? "text-yellow-500 "
                         : "text-white"

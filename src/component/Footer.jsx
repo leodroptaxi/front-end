@@ -1,10 +1,10 @@
 import React from "react";
 import {
   FaWhatsapp,
-  FaInstagram,
-  FaTwitter,
-  FaFacebookF,
-  FaGooglePlusG,
+  // FaInstagram,
+  // FaTwitter,
+  // FaFacebookF,
+  // FaGooglePlusG,
 } from "react-icons/fa";
 import logo from "../assets/logo.png";
 import footerLogo from "../assets/footerLogo.png";
@@ -61,25 +61,30 @@ export default function Footer() {
 
       {/* Footer Info Section (Desktop) */}
       <div className="bg-[#029EA1] px-8 py-6 hidden md:block">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-center items-start">
           {/* Left Section - Logo and Address */}
           <div className="mb-6 md:mb-0">
             <div className="flex items-center mb-4">
-              <img src={logo} alt="logo" className="w-52" />
+              <img src={logo} alt="logo" className="w-80" />
             </div>
 
-            <div className="text-white">
-              <div className="font-bold text-sm mb-1">ADDRESS :</div>
+            <div className="text-white text-center">
+              <div className="font-bold text-2xl mb-1">ADDRESS</div>
               <div className="text-sm leading-relaxed">
                 No.71 18 th Block A Type Thiru Avadi,
                 <br />
                 Chennai-54
               </div>
+              
             </div>
+            
           </div>
 
+          
+
+
           {/* Center Section - Menu */}
-          <div className="mb-6 md:mb-0">
+          {/* <div className="mb-6 md:mb-0">
             <nav className="space-y-2">
               <div className="text-yellow-400 font-bold text-lg mb-3">MENU</div>
               {menuItems.map((item, index) => {
@@ -95,14 +100,14 @@ export default function Footer() {
                 );
               })}
             </nav>
-          </div>
+          </div> */}
 
           {/* Right Section - Social Media */}
-          <div>
+          {/* <div>
             <div className="text-white font-bold text-lg mb-4">
               SOCIAL MEDIA
             </div>
-            <div className="flex space-x-3">
+            <div className="flex space-x-3 mb-3">
               <a
                 href="#"
                 className="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors"
@@ -129,10 +134,12 @@ export default function Footer() {
               </a>
             </div>
 
-            {/* Designer Credit */}
-            <div className="text-white text-xs mt-4">Designed By Mono Mist</div>
-          </div>
+      
+            <a href="tel:+917200343435" className="text-white text-lg">Designed By Leo Drop Taxi</a>
+          </div> */}
         </div>
+        
+        
       </div>
 
       {/* Mobile Footer */}
@@ -187,11 +194,17 @@ export default function Footer() {
             })}
           </div>
 
-          <p className="mx-auto text-white w-fit mt-4 text-sm">
-            Designed By Mano Misi
-          </p>
+          <a href="tel:+917200343435" className="mx-auto text-white w-fit mt-4 text-sm">
+            Designed By Leo Drop Taxi
+          </a>
         </div>
       </div>
+
+      <hr />
+      <div className="bg-[#029EA1] flex justify-center py-3">
+      <a href="tel:+917200343435" className="text-white text-lg">Designed By Leo Drop Taxi</a>
+      </div>
+      
     </div>
   );
 }

@@ -18,9 +18,9 @@ export default function App() {
       {/* Phone Button (Left Edge) */}
       <a
         href="tel:+917200343435"
-        className="fixed bottom-6 left-6 bg-[#019DBC] hover:bg-[#0185a3] text-white p-5 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 z-50"
+        className="fixed bottom-6 right-6 bg-[#019DBC] hover:bg-[#0185a3] text-white p-4 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 z-50"
       >
-        <MdLocalPhone size={30} />
+        <MdLocalPhone size={36} />
       </a>
 
       {/* WhatsApp Button (Right Edge) */}
@@ -28,7 +28,7 @@ export default function App() {
         href="https://wa.me/917200343435?text=I%20want%20more%20info"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 z-50"
+        className="fixed bottom-6 left-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 z-50"
       >
         <FaWhatsapp size={42} />
       </a>

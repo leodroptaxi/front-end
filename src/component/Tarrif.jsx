@@ -24,13 +24,13 @@ export default function Tariff() {
           img: sedan1,
         },
         {
-          model: "Tata Jest",
+          model: "TATA ZEST",
           oneWay: 14,
           roundTrip: 13,
           img: sedan2,
         },
         {
-          model: "Hyndai Aura",
+          model: "HYNDAI AURA",
           oneWay: 14,
           roundTrip: 13,
           img: sedan3,
@@ -47,13 +47,13 @@ export default function Tariff() {
           img: bigSedan1,
         },
         {
-          model: "Maruti Siaz",
+          model: "MARUTI CIAZ",
           oneWay: 15,
           roundTrip: 14,
           img: bigSedan2,
         },
         {
-          model: "Nizzan Sunny",
+          model: "NISSAN SUNNY",
           oneWay: 15,
           roundTrip: 14,
           img: bigSedan3,
@@ -76,7 +76,7 @@ export default function Tariff() {
           img: suv2,
         },
         {
-          model: "Xylo",
+          model: "XYLO",
           oneWay: 19,
           roundTrip: 18,
           img: suv3,

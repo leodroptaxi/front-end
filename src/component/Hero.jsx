@@ -24,7 +24,7 @@ export default function Hero() {
 
   return (
     <main>
-      <section className="relative md:h-screen h-[50vh] pt-16" id="home">
+      <section className="relative md:h-screen h-[60vh] pt-16" id="home">
         {/* Background Image Slideshow */}
         <div className="absolute inset-0">
           {images.map((image, index) => (
@@ -53,7 +53,7 @@ export default function Hero() {
           </div>
 
           {/* Right side - Text */}
-          <div className="flex items-center justify-center md:w-2/3 p-8 text-center impact-font">
+          <div className="flex mt-2 md:mt-0 items-center justify-center md:w-2/3 p-8 text-center impact-font">
             <div>
               <h3 className="text-white text-xl md:text-6xl font-medium  tracking-wider poppins-font">
                 BOOK YOUR
