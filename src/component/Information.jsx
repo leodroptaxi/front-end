@@ -3,6 +3,7 @@ import batch from "../assets/batch.png";
 import star from "../assets/star.png";
 import { FaArrowRight } from "react-icons/fa";
 import call from "../assets/call.png";
+import img15000 from "../assets/15000.png";
 
 export default function Information() {
   return (
@@ -10,14 +11,12 @@ export default function Information() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-10">
-         
           <div className="relative">
-          <div className="absolute border-2 border-white w-48 md:w-72 h-9 left-32 top-1/2 -translate-y-1/2 z-0"></div>
-          <h2 className="relative text-xl md:text-2xl text-[#FBFF00] font-semibold mb-4 z-10  pr-2">
-          FOR CUSTOMER INFORMATION
-          </h2>
-        </div>
-          
+            <div className="absolute border-2 border-white w-48 md:w-72 h-9 left-32 top-1/2 -translate-y-1/2 z-0"></div>
+            <h2 className="relative text-xl md:text-2xl text-[#FBFF00] font-semibold mb-4 z-10  pr-2">
+              FOR CUSTOMER INFORMATION
+            </h2>
+          </div>
         </div>
 
         {/* Content Grid */}
@@ -55,12 +54,13 @@ export default function Information() {
             {/* 15000 Trips Completed Card */}
             <div className="bg-[#029EA1] rounded-lg p-6 relative">
               <div className="flex items-center mb-4">
-                <img src={batch} alt="Batch" className="w-16 h-16 mr-4" />
+                <img src={batch} alt="Batch" className="w-24 h-24 md:mr-4" />
                 <div>
-                  <div className="text-[#ffe600] text-3xl md:text-4xl font-bold">
-                    15000
-                  </div>
-                  <div className="text-[#ffe600] text-sm md:text-base font-medium">
+                  {/* Big Number with Glow + Shadow */}
+                 <img src={img15000} alt="15000" className="w-48 md:w-56"/>
+
+                  {/* Outlined Text for Trips Completed */}
+                  <div className="text-lg md:text-xl font-extrabold outlined-text ml-2">
                     TRIPS COMPLETED
                   </div>
                 </div>

@@ -74,12 +74,11 @@ export default function Navbar() {
 
             {/* Call Us Button */}
             <a
-  href="tel:+917200343435"
-  className="bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-2 rounded-full font-bold text-sm transition-colors duration-300"
->
-  CALL US
-</a>
-
+              href="tel:+917200343435"
+              className="bg-[#FBFF00] text-black px-6 py-2 rounded-full font-bold text-sm transition-colors duration-300"
+            >
+              CALL US
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -92,55 +91,54 @@ export default function Navbar() {
         </div>
       </nav>
 
-     {/* Mobile Menu Overlay */}
-<div
-  className={`fixed inset-0 z-40 lg:hidden transform transition-transform duration-500 ease-in-out ${
-    isMenuOpen ? "translate-x-0" : "translate-x-full"
-  }`}
->
-  {/* Dark Background (you can keep/remove since panel is full width) */}
-  <div
-    className={`absolute inset-0 bg-black transition-opacity duration-500 ${
-      isMenuOpen ? "opacity-50" : "opacity-0 pointer-events-none"
-    }`}
-    onClick={toggleMenu}
-  ></div>
-
-  {/* Full Width Menu Panel */}
-  <div className="fixed inset-0 bg-teal-700 h-full w-full shadow-xl">
-    {/* Close Button */}
-    <div className="absolute top-6 right-6">
-      <button
-        onClick={toggleMenu}
-        className="text-white text-3xl focus:outline-none"
+      {/* Mobile Menu Overlay */}
+      <div
+        className={`fixed inset-0 z-40 lg:hidden transform transition-transform duration-500 ease-in-out ${
+          isMenuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
       >
-        <FaTimes />
-      </button>
-    </div>
+        {/* Dark Background (you can keep/remove since panel is full width) */}
+        <div
+          className={`absolute inset-0 bg-black transition-opacity duration-500 ${
+            isMenuOpen ? "opacity-50" : "opacity-0 pointer-events-none"
+          }`}
+          onClick={toggleMenu}
+        ></div>
 
-    {/* Menu Items */}
-    <div className="flex flex-col items-center justify-center h-full space-y-10">
-      {menuItems.map((item, index) => {
-        const sectionId = item.toLowerCase().replace(/\s+/g, "-");
-        return (
-          <a
-            key={index}
-            href={`#${sectionId}`}
-            onClick={toggleMenu} // ✅ closes menu on click
-            className={`transition-colors duration-300 text-lg font-medium ${
-              activeSection === sectionId
-                ? "text-yellow-400"
-                : "text-white hover:text-yellow-400"
-            }`}
-          >
-            {item}
-          </a>
-        );
-      })}
-    </div>
-  </div>
-</div>
+        {/* Full Width Menu Panel */}
+        <div className="fixed inset-0 bg-teal-700 h-full w-full shadow-xl">
+          {/* Close Button */}
+          <div className="absolute top-6 right-6">
+            <button
+              onClick={toggleMenu}
+              className="text-white text-3xl focus:outline-none"
+            >
+              <FaTimes />
+            </button>
+          </div>
 
+          {/* Menu Items */}
+          <div className="flex flex-col items-center justify-center h-full space-y-10">
+            {menuItems.map((item, index) => {
+              const sectionId = item.toLowerCase().replace(/\s+/g, "-");
+              return (
+                <a
+                  key={index}
+                  href={`#${sectionId}`}
+                  onClick={toggleMenu} // ✅ closes menu on click
+                  className={`transition-colors duration-300 text-lg font-medium ${
+                    activeSection === sectionId
+                      ? "text-yellow-400"
+                      : "text-white hover:text-yellow-400"
+                  }`}
+                >
+                  {item}
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      </div>
     </>
   );
 }

@@ -3,8 +3,9 @@ import Form from "./Form";
 
 
 // Use your imported images
-const images = ["https://ik.imagekit.io/yeoyn0r1ah/Property%201=Variant5%20(1).png?updatedAt=1756224421134", 
-  "https://ik.imagekit.io/yeoyn0r1ah/Property%201=Variant4.png?updatedAt=1756224416095", 
+const images = [
+  "https://ik.imagekit.io/yeoyn0r1ah/WhatsApp%20Image%202025-08-27%20at%2010.20.21%20AM.jpeg?updatedAt=1756270280685", 
+  "https://ik.imagekit.io/yeoyn0r1ah/WhatsApp%20Image%202025-08-27%20at%2010.20.22%20AM.jpeg?updatedAt=1756270280698", 
   "https://ik.imagekit.io/yeoyn0r1ah/Property%201=Default%20(2).png?updatedAt=1756224420725",
    "https://ik.imagekit.io/yeoyn0r1ah/WhatsApp%20Image%202025-08-24%20at%2021.58.21_94b775ab.jpg?updatedAt=1756224411420", 
   "https://ik.imagekit.io/yeoyn0r1ah/WhatsApp%20Image%202025-08-25%20at%2006.59.59_e5c4a4de.jpg?updatedAt=1756224411120"
@@ -52,15 +53,15 @@ export default function Hero() {
           </div>
 
           {/* Right side - Text */}
-          <div className="flex items-center justify-center md:w-1/2 p-8 text-center">
+          <div className="flex items-center justify-center md:w-2/3 p-8 text-center impact-font">
             <div>
-              <h3 className="text-white text-lg md:text-xl font-medium md:mb-4 tracking-wider">
+              <h3 className="text-white text-xl md:text-6xl font-medium  tracking-wider poppins-font">
                 BOOK YOUR
               </h3>
-              <h1 className="text-white text-3xl md:text-6xl font-black md:mb-6 tracking-wide leading-tight">
+              <h1 className="text-white text-4xl md:text-8xl font-black  tracking-wide leading-tight">
                 OUTSTATION CAB !!
               </h1>
-              <h3 className="text-yellow-400 text-sm md:text-2xl font-bold tracking-widest">
+              <h3 className="text-[#FBFF00] text-sm md:text-2xl font-bold tracking-widest poppins-font">
                 ONE WAY OUTSTATION TAXI
               </h3>
             </div>
