@@ -240,27 +240,30 @@ const Form = () => {
         }
 
         let distanceInKm = element.distance.value / 1000;
-        // Apply round-trip multiplier
-       
-        const distanceForCost = distanceInKm < 130 ? 130 : distanceInKm;
         let durationMinutes = element.duration.value / 60; // seconds → minutes
-
-        // Format duration AFTER applying round-trip multiplier
+        
+        // Apply round-trip multiplier before formatting
+        if (formData.trip_type === "round_trip") {
+          distanceInKm *= 2;
+          durationMinutes *= 2;
+        }
+        
+        // Now, format duration
         const hrs = Math.floor(durationMinutes / 60);
         const mins = Math.round(durationMinutes % 60);
         const durationText = `${hrs} hrs ${mins} mins`;
+        
+        // Minimum billing logic (still applies to cost only)
+        const distanceForCost = distanceInKm < 130 ? 130 : distanceInKm;
         const cost = distanceForCost * formData.selectedCarRate;
-        if (formData.trip_type === "round_trip") {
-          distanceInKm *= 2;
-          durationMinutes *= 2; // NOW duration is also doubled
-        }
+        
         setEstimationData({
-          distance: distanceInKm.toFixed(2), // true distance shown
+          distance: distanceInKm.toFixed(2),
           duration: durationText,
-          cost: cost.toFixed(2), // fare
+          cost: cost.toFixed(2),
         });
-
-        setCurrentStep("estimate");
+        
+        setCurrentStep("estimate");        
       }
     );
   };
