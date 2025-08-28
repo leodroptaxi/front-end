@@ -48,8 +48,8 @@ export default function Reviews() {
         <div className="text-center mb-12">
           <div className="inline-block px-8">
           <div className="relative">
-          <div className="absolute border-2 border-[#FBFF00] w-40 md:w-72 h-9 left-32 top-1/2 -translate-y-1/2 z-0"></div>
-          <h2 className="relative text-lg md:text-2xl text-white font-semibold mb-4 z-10  pr-2">
+          <div className="absolute border-2 border-[#FBFF00] w-40 md:w-80 h-10 md:h-12 left-32 top-1/2 -translate-y-1/2 z-0"></div>
+          <h2 className="relative text-lg md:text-3xl text-white font-semibold mb-4 z-10  pr-2">
           Customer Reviews & Ratings
           </h2>
         </div>

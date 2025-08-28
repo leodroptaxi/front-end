@@ -55,8 +55,8 @@ export default function OurService() {
         {/* Header */}
         <div className="mb-10">
         <div className="relative">
-          <div className="absolute border-2 border-[#FBFF00] w-40 md:w-80 h-9 left-36 top-1/2 -translate-y-1/2 z-0"></div>
-          <h2 className="relative md:text-2xl text-white font-semibold mb-4 z-10  pr-2">
+          <div className="absolute border-2 border-white w-40 md:w-80 h-10 md:h-12 left-36 top-1/2 -translate-y-1/2 z-0"></div>
+          <h2 className="relative md:text-2xl text-[#FBFF00] font-semibold mb-4 z-10  pr-2">
           OUR SERVICE TOURIST PLACES
           </h2>
         </div>

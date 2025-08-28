@@ -18,9 +18,9 @@ export default function App() {
       {/* Phone Button (Left Edge) */}
       <a
         href="tel:+917200343435"
-        className="fixed bottom-6 right-6 bg-[#019DBC] hover:bg-[#0185a3] text-white p-4 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 z-50"
+        className="fixed bottom-6 right-6 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 z-50"
       >
-        <MdLocalPhone size={42} />
+        <img src="https://ik.imagekit.io/yeoyn0r1ah/phone%20ring.gif?updatedAt=1756375305561" alt="" className='w-28'/>
       </a>
 
       {/* WhatsApp Button (Right Edge) */}

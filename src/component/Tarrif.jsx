@@ -89,7 +89,7 @@ export default function Tariff() {
         {
           model: "",
           oneWay: 20,
-          roundTrip: 18,
+          roundTrip: 19,
           img: innova,
         },
       ],
@@ -101,6 +101,7 @@ export default function Tariff() {
     "Hillstation Charges ₹300",
     "Other State Permit",
     "Tolls",
+    "Parking"
   ];
 
   return (
@@ -108,7 +109,7 @@ export default function Tariff() {
       {/* Header */}
       <div className="max-w-6xl mx-auto mb-10">
         <div className="relative">
-          <div className="absolute border-2 border-white w-52 h-9 left-16 md:left-28 top-1/2 -translate-y-1/2 z-0"></div>
+          <div className="absolute border-2 border-white w-52 h-10 md:h-12 left-16 md:left-28 top-1/2 -translate-y-1/2 z-0"></div>
           <h2 className="relative text-2xl text-[#FBFF00] font-semibold mb-4 z-10 pr-2">
             OUTSTATION TARIFF
           </h2>
@@ -200,7 +201,7 @@ function TariffCard({ category, includedFeatures }) {
       </div>
 
       {/* Pricing + Includes Section */}
-      <div className="bg-white px-8 py-3 mx-6 rounded-t-2xl shadow-md flex justify-between items-start">
+      <div className="bg-white md:px-8 px-4 py-4 mx-6 rounded-t-2xl shadow-md flex justify-between items-start">
         {/* Left Pricing */}
         <div className="flex flex-col space-y-3">
           {/* One Way */}

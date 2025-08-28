@@ -8,7 +8,7 @@ export default function About() {
         {/* Title */}
         <div className="mb-10">
           <div className="relative">
-            <div className="absolute border-2 border-white lg:w-60 w-52 h-9 lg:left-28 left-24 top-1/2 -translate-y-1/2 z-0"></div>
+            <div className="absolute border-2 border-white lg:w-60 w-52 h-10 md:h-12 lg:left-28 left-24 top-1/2 -translate-y-1/2 z-0"></div>
             <h2 className="relative text-xl lg:text-2xl text-[#FBFF00] font-semibold mb-4 z-10 ">
               ABOUT US OUR COMPANY
             </h2>
@@ -32,7 +32,7 @@ export default function About() {
         {/* Mission */}
         <div className="mb-12">
           <div className="relative">
-            <div className="absolute border-2 border-yellow-200 lg:w-32 w-40 h-9 left-10 top-1/2 -translate-y-1/2 z-0"></div>
+            <div className="absolute border-2 border-yellow-200 lg:w-32 w-40 h-10 md:h-12 left-10 top-1/2 -translate-y-1/2 z-0"></div>
             <h2 className="relative text-lg lg:text-2xl font-semibold mb-4 z-10 px-2">
               Our Mission
             </h2>
@@ -47,7 +47,7 @@ export default function About() {
         {/* Why Choose Us */}
         <div>
           <div className="relative">
-            <div className="absolute border-2 border-yellow-200 lg:w-40 w-24 h-9 lg:left-16 left-16 top-1/2 -translate-y-1/2 z-0"></div>
+            <div className="absolute border-2 border-yellow-200 lg:w-40 w-24 h-10 md:h-12 lg:left-16 left-16 top-1/2 -translate-y-1/2 z-0"></div>
             <h2 className="relative text-lg lg:text-2xl font-semibold mb-4 z-10 px-2">
               Why Choose Us
             </h2>

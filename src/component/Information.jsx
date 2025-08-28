@@ -12,7 +12,7 @@ export default function Information() {
         {/* Header */}
         <div className="mb-10">
           <div className="relative">
-            <div className="absolute border-2 border-white w-48 md:w-72 h-9 left-32 top-1/2 -translate-y-1/2 z-0"></div>
+            <div className="absolute border-2 border-white w-48 md:w-72 h-10 md:h-12 left-32 top-1/2 -translate-y-1/2 z-0"></div>
             <h2 className="relative text-xl md:text-2xl text-[#FBFF00] font-semibold mb-4 z-10  pr-2">
               FOR CUSTOMER INFORMATION
             </h2>

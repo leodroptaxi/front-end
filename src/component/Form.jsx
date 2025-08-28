@@ -16,6 +16,7 @@ const Form = () => {
     trip_type: "one_way",
     selectedCarType: "",
     selectedCarRate: 0,
+    selectedCarModel: "",
   });
   const [errors, setErrors] = useState({});
   const [estimationData, setEstimationData] = useState({
@@ -27,29 +28,37 @@ const Form = () => {
   const carTypes = [
     {
       type: "Sedan",
-      price: 14,
-      model: "(₹14/km)",
+      priceForOneTrip: 14,
+      priceForRoundTrip: 13,
+      modelForOneTrip: "(₹14/km)",
+      modelForRoundTrip: "(₹13/km)",
       image:
         "https://images.ctfassets.net/509kpi6dw56l/6QdZLGkGnMv0F8fDwFMGlE/1b85e10c7d90fdac89a4794938a43780/prime-play-1.png?h=250",
     },
     {
       type: "Etios",
-      price: 15,
-      model: "(₹15/km)",
+      priceForOneTrip: 15,
+      priceForRoundTrip: 14,
+      modelForOneTrip: "(₹15/km)",
+      modelForRoundTrip: "(₹14/km)",
       image:
         "https://images.ctfassets.net/509kpi6dw56l/7s8MKkYx4bSfPYlrqUEAW5/c23e3f9a5f9ebbbca681d63f0e8b8130/lux-1.png?h=250",
     },
     {
       type: "MUV",
-      price: 19,
-      model: "(₹19/km)",
+      priceForOneTrip: 19,
+      priceForRoundTrip: 18,
+      modelForOneTrip: "(₹19/km)",
+      modelForRoundTrip: "(₹18/km)",
       image:
         "https://images.ctfassets.net/509kpi6dw56l/72yoz2W0gPFPq50SfgPPqU/2c521cd2260cff9246ea2955bc37b707/prime-suv-1.png?h=250",
     },
     {
       type: "Innova",
-      price: 20,
-      model: "(₹20/km)",
+      priceForOneTrip: 20,
+      priceForRoundTrip: 19,
+      modelForOneTrip: "(₹20/km)",
+      modelForRoundTrip: "(₹19/km)",
       image:
         "https://images.ctfassets.net/509kpi6dw56l/72yoz2W0gPFPq50SfgPPqU/2c521cd2260cff9246ea2955bc37b707/prime-suv-1.png?h=250",
     },
@@ -122,18 +131,41 @@ const Form = () => {
   };
 
   const handleTripTypeChange = (value) => {
-    setFormData((prev) => ({
-      ...prev,
-      trip_type: value,
-    }));
+    setFormData((prev) => {
+      // When trip type changes, also update selectedCarRate and model for new trip type if car selected
+      const car = carTypes.find((c) => c.type === prev.selectedCarType);
+      let rate = 0;
+      let model = "";
+      if (car) {
+        rate = value === "one_way" ? car.priceForOneTrip : car.priceForRoundTrip;
+        model = value === "one_way" ? car.modelForOneTrip : car.modelForRoundTrip;
+      }
+      return {
+        ...prev,
+        trip_type: value,
+        selectedCarRate: rate,
+        selectedCarModel: model,
+      };
+    });
   };
 
   const selectCarType = (carType) => {
-    setFormData((prev) => ({
-      ...prev,
-      selectedCarType: carType.type,
-      selectedCarRate: carType.price,
-    }));
+    setFormData((prev) => {
+      const rate =
+        prev.trip_type === "one_way"
+          ? carType.priceForOneTrip
+          : carType.priceForRoundTrip;
+      const model =
+        prev.trip_type === "one_way"
+          ? carType.modelForOneTrip
+          : carType.modelForRoundTrip;
+      return {
+        ...prev,
+        selectedCarType: carType.type,
+        selectedCarRate: rate,
+        selectedCarModel: model,
+      };
+    });
   };
 
   const validateForm = () => {
@@ -192,43 +224,57 @@ const Form = () => {
           );
           return;
         }
-  
+
         const singleTripDistanceKm = element.distance.value / 1000;
         let durationMinutes = element.duration.value / 60;
-  
+
+        // Calculate day difference for round trip days multiplier
+        let daysMultiplier = 1;
+        if (formData.trip_type === "round_trip") {
+          const pickupDate = new Date(formData.pickup_date);
+          const returnDate = new Date(formData.return_date);
+          const diffTime = returnDate.getTime() - pickupDate.getTime();
+          daysMultiplier = Math.max(1, Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1);
+        }
+
         // For round trip multiply distance and duration by 2
         let totalDistanceKm = singleTripDistanceKm;
         if (formData.trip_type === "round_trip") {
           totalDistanceKm = singleTripDistanceKm * 2;
           durationMinutes *= 2;
         }
-  
+
         // Apply minimum chargeable distances for cost calculation only
         let billedDistance = totalDistanceKm;
         if (formData.trip_type === "one_way" && billedDistance < 130) {
           billedDistance = 130;
         }
-        if (formData.trip_type === "round_trip" && billedDistance < 230) {
-          billedDistance = 230;
+        if (formData.trip_type === "round_trip" && billedDistance < 250) {
+          billedDistance = 250;
         }
-  
+
         const hrs = Math.floor(durationMinutes / 60);
         const mins = Math.round(durationMinutes % 60);
         const durationText = `${hrs} hrs ${mins} mins`;
-  
-        const cost = billedDistance * formData.selectedCarRate;
-  
+
+        // Cost includes multiplying by days if round trip with multiple days
+        const cost =
+          formData.trip_type === "round_trip"
+            ? billedDistance * formData.selectedCarRate * daysMultiplier
+            : billedDistance * formData.selectedCarRate;
+
         setEstimationData({
           distance: totalDistanceKm.toFixed(2), // show total distance including round trip doubling
           duration: durationText,
           cost: cost.toFixed(2),
+          daysMultiplier,
         });
-  
+
         setCurrentStep("estimate");
       }
     );
-  };  
-  
+  };
+
   const confirmBooking = () => {
     const bookingId = Math.random().toString(36).substring(2, 10).toUpperCase();
     setTimeout(() => {
@@ -298,6 +344,7 @@ https://www.leodroptaxi.com`;
       trip_type: "one_way",
       selectedCarType: "",
       selectedCarRate: 0,
+      selectedCarModel: "",
     });
     setErrors({});
     setEstimationData({ distance: 0, duration: "", cost: 0 });
@@ -310,7 +357,10 @@ https://www.leodroptaxi.com`;
         {currentStep === "form" && (
           <div className="bg-[#665c5c] text-white p-4 rounded-3xl shadow-2xl">
             <div className="mb-6">
-              <h2 className="text-white text-md font-medium"  style={{ textShadow: "1px 1px 4px rgba(0,0,0,0.7)" }}>
+              <h2
+                className="text-white text-md font-medium"
+                style={{ textShadow: "1px 1px 4px rgba(0,0,0,0.7)" }}
+              >
                 Anywhere You Go, We're There
               </h2>
             </div>
@@ -399,7 +449,7 @@ https://www.leodroptaxi.com`;
                     <br />
                     {formData.trip_type === "round_trip" && (
                       <span className="text-yellow-400 text-[8px]">
-                        (MINIMUM 230KM)
+                        (MINIMUM 250KM)
                       </span>
                     )}
                   </span>
@@ -426,9 +476,7 @@ https://www.leodroptaxi.com`;
                 autoComplete="off"
               />
               {errors.pickup && (
-                <span className="text-red-300 text-xs ml-4">
-                  {errors.pickup}
-                </span>
+                <span className="text-red-300 text-xs ml-4">{errors.pickup}</span>
               )}
             </div>
             {/* Drop Location */}
@@ -473,9 +521,7 @@ https://www.leodroptaxi.com`;
                   placeholder="Enter Your Name"
                 />
                 {errors.name && (
-                  <span className="text-red-300 text-xs ml-2">
-                    {errors.name}
-                  </span>
+                  <span className="text-red-300 text-xs ml-2">{errors.name}</span>
                 )}
               </div>
               <div>
@@ -496,9 +542,7 @@ https://www.leodroptaxi.com`;
                   maxLength="10"
                 />
                 {errors.mobile && (
-                  <span className="text-red-300 text-xs ml-2">
-                    {errors.mobile}
-                  </span>
+                  <span className="text-red-300 text-xs ml-2">{errors.mobile}</span>
                 )}
               </div>
             </div>
@@ -597,17 +641,18 @@ https://www.leodroptaxi.com`;
                       alt={car.type}
                       className="w-full h-8 object-contain mb-2"
                     />
-                    <div className="text-xs font-bold">
-                      {car.type.toUpperCase()}
+                    <div className="text-xs font-bold">{car.type.toUpperCase()}</div>
+                    <div className="text-xs opacity-75">
+                      {/* Show price model based on selected trip type */}
+                      {formData.trip_type === "one_way"
+                        ? car.modelForOneTrip
+                        : car.modelForRoundTrip}
                     </div>
-                    <div className="text-xs opacity-75">{car.model}</div>
                   </div>
                 ))}
               </div>
               {errors.car_type && (
-                <span className="text-red-300 text-xs ml-4">
-                  {errors.car_type}
-                </span>
+                <span className="text-red-300 text-xs ml-4">{errors.car_type}</span>
               )}
             </div>
             <button
@@ -637,8 +682,16 @@ https://www.leodroptaxi.com`;
                     <td className="py-3 px-4 text-right font-bold text-yellow-400">
                       ₹
                       {formData.trip_type === "one_way"
-                        ? Math.max(130 * formData.selectedCarRate, estimationData.cost)
-                        : Math.max(230 * formData.selectedCarRate, estimationData.cost)}
+                        ? Math.max(
+                            130 * formData.selectedCarRate,
+                            estimationData.cost
+                          )
+                        : Math.max(
+                            250 *
+                              formData.selectedCarRate *
+                              (estimationData.daysMultiplier || 1),
+                            estimationData.cost
+                          )}
                     </td>
                   </tr>
                   <tr>
@@ -684,18 +737,22 @@ https://www.leodroptaxi.com`;
                 </tbody>
               </table>
             </div>
-           {/* Warning messages */}
-           {formData.trip_type === "one_way" && Number(estimationData.distance) < 130 && (
-  <div className="bg-red-200 text-red-800 p-3 rounded-lg mb-3 text-xs font-bold">
-    Minimum chargeable distance is 130 km. Price has been adjusted accordingly.
-  </div>
-)}
+            {/* Warning messages */}
+            {formData.trip_type === "one_way" &&
+              Number(estimationData.distance) < 130 && (
+                <div className="bg-red-200 text-red-800 p-3 rounded-lg mb-3 text-xs font-bold">
+                  Minimum chargeable distance is 130 km. Price has been adjusted
+                  accordingly.
+                </div>
+              )}
 
-{formData.trip_type === "round_trip" && Number(estimationData.distance) < 230 && (
-  <div className="bg-red-200 text-red-800 p-3 rounded-lg mb-3 text-xs font-bold">
-    Minimum chargeable distance for round trip is 230 km. Price has been adjusted accordingly.
-  </div>
-)}
+            {formData.trip_type === "round_trip" &&
+              Number(estimationData.distance) < 250 && (
+                <div className="bg-red-200 text-red-800 p-3 rounded-lg mb-3 text-xs font-bold">
+                  Minimum chargeable distance for round trip is 250 km. Price has
+                  been adjusted accordingly.
+                </div>
+              )}
 
             <div className="bg-yellow-100 text-black p-3 rounded-lg mb-6 text-xs">
               <p>
@@ -723,13 +780,11 @@ https://www.leodroptaxi.com`;
         {currentStep === "success" && (
           <div className="bg-gray-700 text-white p-6 rounded-3xl shadow-2xl text-center">
             <FaCheckCircle className="w-16 h-16 text-green-400 mx-auto mb-4" />
-            <h4 className="text-xl font-bold mb-4">
-              🎉 Ride Booked Successfully!
-            </h4>
+            <h4 className="text-xl font-bold mb-4">🎉 Ride Booked Successfully!</h4>
             <div className="bg-green-100 text-green-800 p-4 rounded-lg mb-6">
               <p className="text-xs font-medium">
-                Your booking has been confirmed! You will receive booking
-                details on WhatsApp shortly.
+                Your booking has been confirmed! You will receive booking details
+                on WhatsApp shortly.
               </p>
             </div>
             <div className="bg-gray-600 rounded-lg p-4 mb-6 text-left text-xs">
@@ -761,8 +816,8 @@ https://www.leodroptaxi.com`;
               </div>
             </div>
             <p className="text-xs mb-6 opacity-90">
-              Thanks for choosing <strong>Leo Drop Taxi</strong>! For any
-              queries, contact: <strong>+91 9486891950</strong>
+              Thanks for choosing <strong>Leo Drop Taxi</strong>! For any queries,
+              contact: <strong>+91 9486891950</strong>
             </p>
             <div className="space-y-3">
               <button
