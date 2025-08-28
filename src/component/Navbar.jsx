@@ -75,7 +75,7 @@ export default function Navbar() {
             {/* Call Us Button */}
             <a
               href="tel:+917200343435"
-              className="bg-[#FBFF00] text-black px-6 py-2 rounded-full font-bold text-sm transition-colors duration-300"
+              className="bg-[#FBFF00] text-black px-6 pb-2 pt-3 rounded-full font-bold text-sm transition-colors duration-300"
             >
               CALL US
             </a>

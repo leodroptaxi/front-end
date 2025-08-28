@@ -73,55 +73,9 @@ const Form = () => {
     }));
   }, []);
 
-  // Only run Autocomplete initialization once, after mount
-  // useEffect(() => {
-  //   if (window.google && window.google.maps && window.google.maps.places) {
-  //     // Pickup Autocomplete
-  //     if (pickupRef.current) {
-  //       const pickupAutocomplete = new window.google.maps.places.Autocomplete(
-  //         pickupRef.current,
-  //         { types: ["geocode"], componentRestrictions: { country: "in" } }
-  //       );
-  //       pickupAutocomplete.addListener("place_changed", () => {
-  //         const place = pickupAutocomplete.getPlace();
-  //         if (place && place.formatted_address) {
-  //           setFormData((prev) => ({
-  //             ...prev,
-  //             pickup: place.formatted_address,
-  //           }));
-  //           setErrors((prev) => ({
-  //             ...prev,
-  //             pickup: "",
-  //           }));
-  //         }
-  //       });
-  //     }
-  //     // Drop Autocomplete
-  //     if (dropRef.current) {
-  //       const dropAutocomplete = new window.google.maps.places.Autocomplete(
-  //         dropRef.current,
-  //         { types: ["geocode"], componentRestrictions: { country: "in" } }
-  //       );
-  //       dropAutocomplete.addListener("place_changed", () => {
-  //         const place = dropAutocomplete.getPlace();
-  //         if (place && place.formatted_address) {
-  //           setFormData((prev) => ({
-  //             ...prev,
-  //             drop: place.formatted_address,
-  //           }));
-  //           setErrors((prev) => ({
-  //             ...prev,
-  //             drop: "",
-  //           }));
-  //         }
-  //       });
-  //     }
-  //   }
-  // }, []);
-
   useEffect(() => {
     if (currentStep !== "form") return;
-  
+
     if (window.google && window.google.maps && window.google.maps.places) {
       if (pickupRef.current) {
         const pickupAutocomplete = new window.google.maps.places.Autocomplete(
@@ -136,7 +90,7 @@ const Form = () => {
           }
         });
       }
-  
+
       if (dropRef.current) {
         const dropAutocomplete = new window.google.maps.places.Autocomplete(
           dropRef.current,
@@ -238,36 +192,43 @@ const Form = () => {
           );
           return;
         }
-
-        let distanceInKm = element.distance.value / 1000;
-        let durationMinutes = element.duration.value / 60; // seconds → minutes
-        
-        // Apply round-trip multiplier before formatting
+  
+        const singleTripDistanceKm = element.distance.value / 1000;
+        let durationMinutes = element.duration.value / 60;
+  
+        // For round trip multiply distance and duration by 2
+        let totalDistanceKm = singleTripDistanceKm;
         if (formData.trip_type === "round_trip") {
-          distanceInKm *= 2;
+          totalDistanceKm = singleTripDistanceKm * 2;
           durationMinutes *= 2;
         }
-        
-        // Now, format duration
+  
+        // Apply minimum chargeable distances for cost calculation only
+        let billedDistance = totalDistanceKm;
+        if (formData.trip_type === "one_way" && billedDistance < 130) {
+          billedDistance = 130;
+        }
+        if (formData.trip_type === "round_trip" && billedDistance < 230) {
+          billedDistance = 230;
+        }
+  
         const hrs = Math.floor(durationMinutes / 60);
         const mins = Math.round(durationMinutes % 60);
         const durationText = `${hrs} hrs ${mins} mins`;
-        
-        // Minimum billing logic (still applies to cost only)
-        const distanceForCost = distanceInKm < 130 ? 130 : distanceInKm;
-        const cost = distanceForCost * formData.selectedCarRate;
-        
+  
+        const cost = billedDistance * formData.selectedCarRate;
+  
         setEstimationData({
-          distance: distanceInKm.toFixed(2),
+          distance: totalDistanceKm.toFixed(2), // show total distance including round trip doubling
           duration: durationText,
           cost: cost.toFixed(2),
         });
-        
-        setCurrentStep("estimate");        
+  
+        setCurrentStep("estimate");
       }
     );
-  };
-
+  };  
+  
   const confirmBooking = () => {
     const bookingId = Math.random().toString(36).substring(2, 10).toUpperCase();
     setTimeout(() => {
@@ -438,7 +399,7 @@ https://www.leodroptaxi.com`;
                     <br />
                     {formData.trip_type === "round_trip" && (
                       <span className="text-yellow-400 text-[8px]">
-                        (MINIMUM 130KM)
+                        (MINIMUM 230KM)
                       </span>
                     )}
                   </span>
@@ -675,9 +636,9 @@ https://www.leodroptaxi.com`;
                     </th>
                     <td className="py-3 px-4 text-right font-bold text-yellow-400">
                       ₹
-                      {estimationData.distance < 130
-                        ? 130 * formData.selectedCarRate
-                        : estimationData.cost}
+                      {formData.trip_type === "one_way"
+                        ? Math.max(130 * formData.selectedCarRate, estimationData.cost)
+                        : Math.max(230 * formData.selectedCarRate, estimationData.cost)}
                     </td>
                   </tr>
                   <tr>
@@ -723,12 +684,19 @@ https://www.leodroptaxi.com`;
                 </tbody>
               </table>
             </div>
-            {estimationData.distance < 130 && (
-              <div className="bg-red-200 text-red-800 p-3 rounded-lg mb-3 text-xs font-bold">
-                Minimum chargeable distance is 130 km. Price has been adjusted
-                accordingly.
-              </div>
-            )}
+           {/* Warning messages */}
+           {formData.trip_type === "one_way" && Number(estimationData.distance) < 130 && (
+  <div className="bg-red-200 text-red-800 p-3 rounded-lg mb-3 text-xs font-bold">
+    Minimum chargeable distance is 130 km. Price has been adjusted accordingly.
+  </div>
+)}
+
+{formData.trip_type === "round_trip" && Number(estimationData.distance) < 230 && (
+  <div className="bg-red-200 text-red-800 p-3 rounded-lg mb-3 text-xs font-bold">
+    Minimum chargeable distance for round trip is 230 km. Price has been adjusted accordingly.
+  </div>
+)}
+
             <div className="bg-yellow-100 text-black p-3 rounded-lg mb-6 text-xs">
               <p>
                 <strong>Note:</strong> Toll charges, parking fees, and permits
