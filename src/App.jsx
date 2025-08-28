@@ -20,7 +20,7 @@ export default function App() {
         href="tel:+917200343435"
         className="fixed bottom-6 right-6 bg-[#019DBC] hover:bg-[#0185a3] text-white p-4 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 z-50"
       >
-        <MdLocalPhone size={36} />
+        <MdLocalPhone size={42} />
       </a>
 
       {/* WhatsApp Button (Right Edge) */}

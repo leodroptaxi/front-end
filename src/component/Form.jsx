@@ -310,7 +310,7 @@ https://www.leodroptaxi.com`;
         {currentStep === "form" && (
           <div className="bg-[#665c5c] text-white p-4 rounded-3xl shadow-2xl">
             <div className="mb-6">
-              <h2 className="text-white text-md font-medium">
+              <h2 className="text-white text-md font-medium"  style={{ textShadow: "1px 1px 4px rgba(0,0,0,0.7)" }}>
                 Anywhere You Go, We're There
               </h2>
             </div>
