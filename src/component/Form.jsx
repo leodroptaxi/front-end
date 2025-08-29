@@ -3,6 +3,11 @@ import { FaCheckCircle } from "react-icons/fa";
 import btn from "../assets/Vector.png";
 import axios from "axios";
 
+import sedanYellow from "../assets/sedanYellow.png";
+import etiosYellow from "../assets/etiosYellow.png";
+import xuvYellow from "../assets/xuvYellow.png";
+import innovaYellow from "../assets/innovaYellow.png";
+
 const Form = () => {
   const [currentStep, setCurrentStep] = useState("form"); // 'form', 'estimate', 'success'
   const [formData, setFormData] = useState({
@@ -94,7 +99,10 @@ const Form = () => {
         pickupAutocomplete.addListener("place_changed", () => {
           const place = pickupAutocomplete.getPlace();
           if (place?.formatted_address) {
-            setFormData((prev) => ({ ...prev, pickup: place.formatted_address }));
+            setFormData((prev) => ({
+              ...prev,
+              pickup: place.formatted_address,
+            }));
             setErrors((prev) => ({ ...prev, pickup: "" }));
           }
         });
@@ -137,8 +145,10 @@ const Form = () => {
       let rate = 0;
       let model = "";
       if (car) {
-        rate = value === "one_way" ? car.priceForOneTrip : car.priceForRoundTrip;
-        model = value === "one_way" ? car.modelForOneTrip : car.modelForRoundTrip;
+        rate =
+          value === "one_way" ? car.priceForOneTrip : car.priceForRoundTrip;
+        model =
+          value === "one_way" ? car.modelForOneTrip : car.modelForRoundTrip;
       }
       return {
         ...prev,
@@ -234,7 +244,10 @@ const Form = () => {
           const pickupDate = new Date(formData.pickup_date);
           const returnDate = new Date(formData.return_date);
           const diffTime = returnDate.getTime() - pickupDate.getTime();
-          daysMultiplier = Math.max(1, Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1);
+          daysMultiplier = Math.max(
+            1,
+            Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1
+          );
         }
 
         // For round trip multiply distance and duration by 2
@@ -476,7 +489,9 @@ https://www.leodroptaxi.com`;
                 autoComplete="off"
               />
               {errors.pickup && (
-                <span className="text-red-300 text-xs ml-4">{errors.pickup}</span>
+                <span className="text-red-300 text-xs ml-4">
+                  {errors.pickup}
+                </span>
               )}
             </div>
             {/* Drop Location */}
@@ -521,7 +536,9 @@ https://www.leodroptaxi.com`;
                   placeholder="Enter Your Name"
                 />
                 {errors.name && (
-                  <span className="text-red-300 text-xs ml-2">{errors.name}</span>
+                  <span className="text-red-300 text-xs ml-2">
+                    {errors.name}
+                  </span>
                 )}
               </div>
               <div>
@@ -542,7 +559,9 @@ https://www.leodroptaxi.com`;
                   maxLength="10"
                 />
                 {errors.mobile && (
-                  <span className="text-red-300 text-xs ml-2">{errors.mobile}</span>
+                  <span className="text-red-300 text-xs ml-2">
+                    {errors.mobile}
+                  </span>
                 )}
               </div>
             </div>
@@ -634,14 +653,29 @@ https://www.leodroptaxi.com`;
                       formData.selectedCarType === car.type
                         ? "bg-white rounded-xl border-yellow-400 text-black"
                         : " text-white hover:bg-gray-500 hover:rounded-xl"
-                    }`}
+                    }`} 
                   >
                     <img
-                      src={car.image}
+                      src={
+                        formData.selectedCarType === car.type
+                          ? car.type === "Sedan"
+                            ? sedanYellow
+                            : car.type === "Etios"
+                            ? etiosYellow
+                            : car.type === "MUV"
+                            ? xuvYellow
+                            : car.type === "Innova"
+                            ? innovaYellow
+                            : car.image
+                          : car.image
+                      }
                       alt={car.type}
                       className="w-full h-8 object-contain mb-2"
                     />
-                    <div className="text-xs font-bold">{car.type.toUpperCase()}</div>
+
+                    <div className="text-xs font-bold">
+                      {car.type.toUpperCase()}
+                    </div>
                     <div className="text-xs opacity-75">
                       {/* Show price model based on selected trip type */}
                       {formData.trip_type === "one_way"
@@ -652,12 +686,14 @@ https://www.leodroptaxi.com`;
                 ))}
               </div>
               {errors.car_type && (
-                <span className="text-red-300 text-xs ml-4">{errors.car_type}</span>
+                <span className="text-red-300 text-xs ml-4">
+                  {errors.car_type}
+                </span>
               )}
             </div>
             <button
               onClick={calculateEstimate}
-              className="w-full gap-5 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-xl transition-colors flex items-center justify-center text-sm"
+              className="w-full gap-5 bg-[#FBFF00] text-black font-bold py-4 px-6 rounded-xl transition-colors flex items-center justify-center text-base md:text-base"
             >
               Book Your Cab{" "}
               <span>
@@ -749,8 +785,8 @@ https://www.leodroptaxi.com`;
             {formData.trip_type === "round_trip" &&
               Number(estimationData.distance) < 250 && (
                 <div className="bg-red-200 text-red-800 p-3 rounded-lg mb-3 text-xs font-bold">
-                  Minimum chargeable distance for round trip is 250 km. Price has
-                  been adjusted accordingly.
+                  Minimum chargeable distance for round trip is 250 km. Price
+                  has been adjusted accordingly.
                 </div>
               )}
 
@@ -763,7 +799,7 @@ https://www.leodroptaxi.com`;
             <div className="text-center space-y-3">
               <button
                 onClick={confirmBooking}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-xl transition-colors"
+                className="w-full bg-[#FBFF00] text-black font-bold py-4 px-6 rounded-xl transition-colors"
               >
                 Confirm Booking
               </button>
@@ -780,11 +816,13 @@ https://www.leodroptaxi.com`;
         {currentStep === "success" && (
           <div className="bg-gray-700 text-white p-6 rounded-3xl shadow-2xl text-center">
             <FaCheckCircle className="w-16 h-16 text-green-400 mx-auto mb-4" />
-            <h4 className="text-xl font-bold mb-4">🎉 Ride Booked Successfully!</h4>
+            <h4 className="text-xl font-bold mb-4">
+              🎉 Ride Booked Successfully!
+            </h4>
             <div className="bg-green-100 text-green-800 p-4 rounded-lg mb-6">
               <p className="text-xs font-medium">
-                Your booking has been confirmed! You will receive booking details
-                on WhatsApp shortly.
+                Your booking has been confirmed! You will receive booking
+                details on WhatsApp shortly.
               </p>
             </div>
             <div className="bg-gray-600 rounded-lg p-4 mb-6 text-left text-xs">
@@ -816,13 +854,13 @@ https://www.leodroptaxi.com`;
               </div>
             </div>
             <p className="text-xs mb-6 opacity-90">
-              Thanks for choosing <strong>Leo Drop Taxi</strong>! For any queries,
-              contact: <strong>+91 9486891950</strong>
+              Thanks for choosing <strong>Leo Drop Taxi</strong>! For any
+              queries, contact: <strong>+91 9486891950</strong>
             </p>
             <div className="space-y-3">
               <button
                 onClick={resetForm}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-xl transition-colors"
+                className="w-full bg-[#FBFF00] text-black  font-bold py-4 px-6 rounded-xl transition-colors"
               >
                 Book Another Ride
               </button>
