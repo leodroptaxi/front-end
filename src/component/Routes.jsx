@@ -100,7 +100,7 @@ export default function Routes() {
     <div className="relative overflow-hidden " id="popular-routes">
       <div className="relative z-10 px-8 md:px-0 py-8 max-w-6xl mx-auto">
         {/* Header */}
-        <div className="mb-12 ">
+        <div className="mb-12">
           <div className="relative">
             <div className="absolute border-2 border-white w-40 md:w-80 h-10 md:h-12 left-36 top-1/2 -translate-y-1/2 z-0"></div>
             <h2 className="relative md:text-2xl text-[#FBFF00] font-semibold mb-4 z-10 pr-2">

@@ -59,16 +59,18 @@ export default function Navbar() {
               const sectionId = item.toLowerCase().replace(/\s+/g, "-");
               return (
                 <a
-                  key={index}
-                  href={`#${sectionId}`}
-                  className={`transition-colors duration-300 text-sm font-medium ${
-                    activeSection === sectionId
-                      ? "text-yellow-400"
-                      : "text-white hover:text-yellow-400"
-                  }`}
-                >
-                  {item}
-                </a>
+  key={index}
+  href={`#${sectionId}`}
+  onClick={() => setActiveSection(sectionId)} // ✅ immediately set active
+  className={`transition-colors duration-300 text-sm font-medium ${
+    activeSection === sectionId
+      ? "text-yellow-400"
+      : "text-white hover:text-yellow-400"
+  }`}
+>
+  {item}
+</a>
+
               );
             })}
 
@@ -123,17 +125,22 @@ export default function Navbar() {
               const sectionId = item.toLowerCase().replace(/\s+/g, "-");
               return (
                 <a
-                  key={index}
-                  href={`#${sectionId}`}
-                  onClick={toggleMenu} // ✅ closes menu on click
-                  className={`transition-colors duration-300 text-lg font-medium ${
-                    activeSection === sectionId
-                      ? "text-yellow-400"
-                      : "text-white hover:text-yellow-400"
-                  }`}
-                >
-                  {item}
-                </a>
+                key={index}
+                href={`#${sectionId}`}
+                onClick={() => {
+                  setActiveSection(sectionId); // ✅ fix here also
+                  toggleMenu(); // close menu
+                }}
+                className={`transition-colors duration-300 text-lg font-medium ${
+                  activeSection === sectionId
+                    ? "text-yellow-400"
+                    : "text-white hover:text-yellow-400"
+                }`}
+              >
+                {item}
+              </a>
+              
+
               );
             })}
           </div>
