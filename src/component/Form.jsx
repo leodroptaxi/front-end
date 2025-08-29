@@ -649,7 +649,7 @@ https://www.leodroptaxi.com`;
                   <div
                     key={car.type}
                     onClick={() => selectCarType(car)}
-                    className={`p-4 cursor-pointer transition-all text-center  ${
+                    className={`px-4 py-3 cursor-pointer transition-all text-center  ${
                       formData.selectedCarType === car.type
                         ? "bg-white rounded-xl border-yellow-400 text-black"
                         : " text-white hover:bg-gray-500 hover:rounded-xl"
@@ -670,7 +670,7 @@ https://www.leodroptaxi.com`;
                           : car.image
                       }
                       alt={car.type}
-                      className="w-full h-8 object-contain mb-2"
+                      className="w-full h-8 object-contain mb-1"
                     />
 
                     <div className="text-xs font-bold">
